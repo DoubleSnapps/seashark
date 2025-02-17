@@ -2,7 +2,7 @@ import adafruit_ble
 from adafruit_ble.advertising.standard import ProvideServicesAdvertisement
 from adafruit_ble.services.nordic import UARTService
 
-# Initialize the BLE radio
+#initialize
 ble = adafruit_ble.BLERadio()
 ble.name = "seashark"  # Set the device name
 
@@ -10,7 +10,7 @@ ble.name = "seashark"  # Set the device name
 uart_service = UARTService()
 advertisement = ProvideServicesAdvertisement(uart_service)
 
-# Start advertising the BLE device
+#advertise
 ble.start_advertising(advertisement)
 print("Advertising as 'seashark'...")
 
