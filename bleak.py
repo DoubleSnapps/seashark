@@ -1,26 +1,35 @@
-import asyncio
-import logging
-from bleak import BleakAdvertiser
+import time
+import board
+import adafruit_ble
+from adafruit_ble.advertising.standard import ProvideServicesAdvertisement
+from adafruit_ble.services.nordic import UARTService
 
-# Set up logging
-logging.basicConfig(level=logging.INFO)
+# Create the BLE radio object
+ble = adafruit_ble.BLERadio()
 
-async def advertise():
-    advertiser = BleakAdvertiser()
-    advertisement_data = {
-        "local_name": "PiZeroW_BLE",
-        "manufacturer_data": {0xFFFF: b"RPiZero"},
-        "service_uuids": ["12345678-1234-5678-1234-56789abcdef0"]
-    }
+# Set the device name (appears when scanning)
+ble.name = "seashark"
+
+# Create a UART Service (like a serial terminal over Bluetooth)
+uart_service = UARTService()
+advertisement = ProvideServicesAdvertisement(uart_service)
+
+print("Starting Bluetooth advertisement...")
+
+while True:
+    # Start advertising
+    ble.start_advertising(advertisement)
     
-    logging.info("Starting BLE advertisement on Raspberry Pi Zero W...")
-    async with advertiser:
-        await advertiser.start(**advertisement_data)
-        while True:
-            await asyncio.sleep(10)  # Keep advertising indefinitely
+    # Wait for a connection
+    while not ble.connected:
+        time.sleep(0.5)
 
-if __name__ == "__main__":
-    try:
-        asyncio.run(advertise())
-    except KeyboardInterrupt:
-        logging.info("BLE advertisement stopped.")
+    print("Connection Found")
+
+    while ble.connected:
+        # Keep the connection alive
+        if uart_service.in_waiting:
+            data = uart_service.read(uart_service.in_waiting)
+            print(f"Received: {data}")
+
+    print("Disconnected, restarting advertisement...")
