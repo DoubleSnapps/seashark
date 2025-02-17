@@ -1,35 +1,25 @@
+import os
 import time
-import board
-import adafruit_ble
-from adafruit_ble.advertising.standard import ProvideServicesAdvertisement
-from adafruit_ble.services.nordic import UARTService
 
-# Create the BLE radio object
-ble = adafruit_ble.BLERadio()
+def start_ble_advertising():
+    print("Starting Bluetooth LE Advertisement...")
 
-# Set the device name (appears when scanning)
-ble.name = "seashark"
+    # Enable Bluetooth
+    os.system("sudo bluetoothctl power on")
 
-# Create a UART Service (like a serial terminal over Bluetooth)
-uart_service = UARTService()
-advertisement = ProvideServicesAdvertisement(uart_service)
+    # Set device to advertise mode
+    os.system("sudo bluetoothctl advertise on")
 
-print("Starting Bluetooth advertisement...")
+    # Set a custom name
+    os.system('sudo bluetoothctl system-alias PiZeroW_BLE')
 
-while True:
-    # Start advertising
-    ble.start_advertising(advertisement)
-    
-    # Wait for a connection
-    while not ble.connected:
-        time.sleep(0.5)
+    # Advertise indefinitely
+    try:
+        while True:
+            time.sleep(5)
+    except KeyboardInterrupt:
+        print("\nStopping advertisement...")
+        os.system("sudo bluetoothctl advertise off")
 
-    print("Connection Found")
-
-    while ble.connected:
-        # Keep the connection alive
-        if uart_service.in_waiting:
-            data = uart_service.read(uart_service.in_waiting)
-            print(f"Received: {data}")
-
-    print("Disconnected, restarting advertisement...")
+if __name__ == "__main__":
+    start_ble_advertising()
