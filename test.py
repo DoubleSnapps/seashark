@@ -1,6 +1,5 @@
 from adafruit_motorkit import MotorKit
 
-
 kit = MotorKit()
 motor1 = kit.motor1
 motor2 = kit.motor2

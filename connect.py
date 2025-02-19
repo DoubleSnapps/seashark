@@ -1,16 +1,6 @@
 import evdev
-
-# Button mapping for 8BitDo Lite
-BUTTON_MAP = {
-    304: "B",
-    305: "X",
-    306: "Y",
-    307: "A",
-    308: "Left Bumper (L1)",
-    309: "Right Bumper (R1)",
-    310: "Minus (-)",
-    311: "Plus (+)"
-}
+from Constants import *
+#from capture import capture_image
 
 # List all devices
 devices = [evdev.InputDevice(path) for path in evdev.list_devices()]
@@ -23,22 +13,46 @@ controller = None
 for device in devices:
     if "8bitdo" in device.name.lower() or "gamepad" in device.name.lower() or "controller" in device.name.lower():
         controller = evdev.InputDevice(device.path)
-        print(f"✅ Using controller: {controller.name} (Device Path: {device.path})")
+        print(f"Using controller: {controller.name} (Device Path: {device.path})")
         break
 
 if not controller:
-    print("❌ No controller found! Make sure it's connected.")
+    print("ERROR: No controller found!")
     exit()
 
+
 # Read inputs
-print("🎮 Listening for controller inputs...")
+print("Listening for controller inputs...")
 for event in controller.read_loop():
     if event.type == evdev.ecodes.EV_KEY:  # Button presses
-        button = BUTTON_MAP.get(event.code, f"Unknown Button {event.code}")
+        button = constants.BUTTON_MAP.get(event.code, f"Unknown Button {event.code}")
         if event.value == 1:  # Button pressed
             print(f"🚀 Button Pressed: {button}")
+
+            # Handle button actions with match-case
+            match button:
+                case "A":
+                    print("Button Pressed: A")
+                case "B":
+                    print("Button Pressed: B")
+                case "X":
+                    print("Button Pressed: X")
+                case "Y":
+                    print("Button Pressed: Y")
+                case "LB":
+                    print("Button Pressed: LB")
+                case "RB":
+                    print("Button Pressed: RB")
+                    print("Running Snapshot Command")
+                case "-":
+                    print("Button Pressed: -")
+                case "+":
+                    print("Button Pressed: +")
+                case _:
+                    print(f"Warning: Unmapped Button: {button}")
+
         elif event.value == 0:  # Button released
-            print(f"🛑 Button Released: {button}")
+            print(f"Released: {button}")
 
     elif event.type == evdev.ecodes.EV_ABS:  # Joystick movements
         axis = evdev.ecodes.ABS.get(event.code, f"Unknown Axis {event.code}")
