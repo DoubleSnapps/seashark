@@ -102,7 +102,7 @@ for event in controller.read_loop():
             # Handle axis releases
             match axis_name:
                 case "ABS_HAT0X" | "ABS_HAT0Y":  # D-Pad Released
-                    robot.stop
+                    robot.stop()
                 case "ABS_Z":  # Left Trigger Released
                     print("LT Released")
                 case "ABS_RZ":  # Right Trigger Released
