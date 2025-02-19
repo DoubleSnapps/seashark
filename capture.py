@@ -9,7 +9,7 @@ def capture_image(timeout=2000):
 
     :param timeout: Time (in ms) to allow auto-exposure adjustments before capturing.
     """
-    imagePath = constants.imageFolder + ''.join(random.choices(string.ascii_letters + string.digits, constants.fileNameLength)) + ".jpg"
+    imagePath = constants.imageFolder + random.choices(string.ascii_letters + string.digits, constants.fileNameLength) + ".jpg"
     print(f"📷 Capturing image... Saving to: {imagePath}")
     try:
         subprocess.run(["libcamera-still", "-o", imagePath, "--timeout", str(timeout)], check=True)
