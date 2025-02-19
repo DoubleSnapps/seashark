@@ -76,10 +76,10 @@ for event in controller.read_loop():
                     robot.drive(-1)
                 case "LDpad":
                     print("LDpad: Unbound")
-                    robot.turnL()
+                    robot.turnL(1)
                 case "RDpad":
                     print("RDpad: Unbound")
-                    robot.turnR()
+                    robot.turnR(1)
                 case "LT":
                     print("LT: Unbound")
                 case "RT":
@@ -93,4 +93,21 @@ for event in controller.read_loop():
                 case "JR":
                     print("JR: Strafing Right")
                 case _:
-                    print(f"Warning: Unmapped Action: {action}")
+                    print(f"Warning: Unmapped Axis: {action}")
+
+    # Detect Released Actions (when input returns to neutral state)
+    elif axis_name in constants.AXIS_MAP and value == 0:
+        print(f"🛑 {axis_name} Released - Stopping Movement")
+
+        # Handle axis releases
+        match axis_name:
+            case "ABS_HAT0X" | "ABS_HAT0Y":  # D-Pad Released
+                robot.stop
+            case "ABS_Z":  # Left Trigger Released
+                print("LT Released")
+            case "ABS_RZ":  # Right Trigger Released
+                print("RT Released")
+            case "ABS_X" | "ABS_Y":  # Joystick Released
+                robot.stop()
+            case _:
+                print(f"Warning: Unkown Axis Release: {axis_name}")
