@@ -69,16 +69,16 @@ for event in controller.read_loop():
             # Handle joystick/D-Pad actions
             match action:
                 case "UDpad":
-                    print("UDpad: Unbound")
+                    print("UDpad: Drive Up")
                     robot.drive(1)
                 case "DDpad":
-                    print("DDpad: Unbound")
+                    print("DDpad: Drive Back")
                     robot.drive(-1)
                 case "LDpad":
-                    print("LDpad: Unbound")
+                    print("LDpad: Drive Left")
                     robot.turnL(1)
                 case "RDpad":
-                    print("RDpad: Unbound")
+                    print("RDpad: Drive Right")
                     robot.turnR(1)
                 case "LT":
                     print("LT: Unbound")
@@ -97,11 +97,11 @@ for event in controller.read_loop():
 
         # Detect Released Actions (when input returns to neutral state)
         elif axis_name in constants.AXIS_MAP and value == 0:
-            print(f"🛑 {axis_name} Released - Stopping Movement")
+            print(f"{axis_name} Released - Stopping Movement")
 
             # Handle axis releases
             match axis_name:
-                case "ABS_HAT0X" | "ABS_HAT0Y":  # D-Pad Released
+                case "ABS_HAT0X" | "ABS_HAT0Y":
                     robot.stop()
                 case "ABS_Z":  # Left Trigger Released
                     print("LT Released")
