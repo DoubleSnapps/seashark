@@ -6,6 +6,7 @@ from capture import capture_image
 # List all devices
 robot = Drivebase()
 print("Robot Constructed")
+robot.buzz()
 
 devices = [evdev.InputDevice(path) for path in evdev.list_devices()]
 print("searching")
