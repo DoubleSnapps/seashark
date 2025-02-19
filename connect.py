@@ -95,19 +95,19 @@ for event in controller.read_loop():
                 case _:
                     print(f"Warning: Unmapped Axis: {action}")
 
-    # Detect Released Actions (when input returns to neutral state)
-    elif axis_name in constants.AXIS_MAP and value == 0:
-        print(f"🛑 {axis_name} Released - Stopping Movement")
+        # Detect Released Actions (when input returns to neutral state)
+        elif axis_name in constants.AXIS_MAP and value == 0:
+            print(f"🛑 {axis_name} Released - Stopping Movement")
 
-        # Handle axis releases
-        match axis_name:
-            case "ABS_HAT0X" | "ABS_HAT0Y":  # D-Pad Released
-                robot.stop
-            case "ABS_Z":  # Left Trigger Released
-                print("LT Released")
-            case "ABS_RZ":  # Right Trigger Released
-                print("RT Released")
-            case "ABS_X" | "ABS_Y":  # Joystick Released
-                robot.stop()
-            case _:
-                print(f"Warning: Unkown Axis Release: {axis_name}")
+            # Handle axis releases
+            match axis_name:
+                case "ABS_HAT0X" | "ABS_HAT0Y":  # D-Pad Released
+                    robot.stop
+                case "ABS_Z":  # Left Trigger Released
+                    print("LT Released")
+                case "ABS_RZ":  # Right Trigger Released
+                    print("RT Released")
+                case "ABS_X" | "ABS_Y":  # Joystick Released
+                    robot.stop()
+                case _:
+                    print(f"Warning: Unkown Axis Release: {axis_name}")
