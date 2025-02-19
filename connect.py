@@ -70,12 +70,16 @@ for event in controller.read_loop():
             match action:
                 case "UDpad":
                     print("UDpad: Unbound")
+                    robot.drive(1)
                 case "DDpad":
                     print("DDpad: Unbound")
+                    robot.drive(-1)
                 case "LDpad":
                     print("LDpad: Unbound")
+                    robot.turnL()
                 case "RDpad":
                     print("RDpad: Unbound")
+                    robot.turnR()
                 case "LT":
                     print("LT: Unbound")
                 case "RT":
