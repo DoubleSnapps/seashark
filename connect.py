@@ -10,7 +10,7 @@ print("Robot Constructed")
 devices = [evdev.InputDevice(path) for path in evdev.list_devices()]
 print("searching")
 for device in devices:
-    print(f"📌 {device.path} - {device.name}")
+    print(f"{device.path} - {device.name}")
 
 controller = None
 for device in devices:
@@ -35,20 +35,22 @@ for event in controller.read_loop():
                     print("A: Drive forward")
                     robot.drive(0.5)
                 case "B":
-                    print("Button Pressed: B")
+                    print("B: Unbound")
                 case "X":
-                    print("Button Pressed: X")
+                    print("X: Unbound")
                 case "Y":
-                    print("Button Pressed: Y")
+                    print("Y: Unbound")
                 case "LB":
-                    print("Button Pressed: LB")
+                    print("LB: Unbound")
                 case "RB":
                     print("RB: Running Snapshot Command")
                     capture_image(1000)
                 case "-":
-                    print("Button Pressed: -")
+                    print("-: Unbound")
                 case "+":
-                    print("Button Pressed: +")
+                    print("+: Unbound")
+                case "MENU":
+                    print("MENU: Unbound")
                 case _: 
                     print(f"Warning: Unmapped Button: {button}")
 
@@ -56,7 +58,35 @@ for event in controller.read_loop():
             print(f"Released: {button}")
             robot.stop()
 
-    elif event.type == evdev.ecodes.EV_ABS:  # Joystick movements
-        axis = evdev.ecodes.ABS.get(event.code, f"Unknown Axis {event.code}")
+    elif event.type == evdev.ecodes.EV_ABS:  # D-Pad, Triggers, Joysticks
+        axis_name = evdev.ecodes.ABS.get(event.code, f"Unknown Axis {event.code}")
         value = event.value
-        print(f"🎯 Joystick Moved: {axis} - Value: {value}")
+        
+        if axis_name in constants.AXIS_MAP and value in constants.AXIS_MAP[axis_name]:
+            action = constants.AXIS_MAP[axis_name][value]
+            print(f"🎮 {action} Pressed")
+
+            # Handle joystick/D-Pad actions
+            match action:
+                case "UDpad":
+                    print("UDpad: Unbound")
+                case "DDpad":
+                    print("DDpad: Unbound")
+                case "LDpad":
+                    print("LDpad: Unbound")
+                case "RDpad":
+                    print("RDpad: Unbound")
+                case "LT":
+                    print("LT: Unbound")
+                case "RT":
+                    print("RT: Unbound")
+                case "JU":
+                    print("JU: Drive Fowards")
+                case "JD":
+                    print("JD: Drive Back")
+                case "JL":
+                    print("JL: Strafing Left")
+                case "JR":
+                    print("JR: Strafing Right")
+                case _:
+                    print(f"Warning: Unmapped Action: {action}")
