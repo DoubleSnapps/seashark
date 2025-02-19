@@ -38,7 +38,8 @@ for event in controller.read_loop():
                 case "B":
                     print("B: Unbound")
                 case "X":
-                    print("X: Unbound")
+                    print("X: Buzz")
+                    robot.revbuzz()
                 case "Y":
                     print("Y: Unbound")
                 case "LB":

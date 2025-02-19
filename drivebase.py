@@ -23,6 +23,9 @@ class Drivebase:
         self.motorL.throttle = 0.2
         self.motorR.throttle = 0.2
         time.sleep(0.2)
+        self.motorL.throttle = 0
+        self.motorR.throttle = 0
+        time.sleep(0.2)
         self.motorL.throttle = 0.2
         self.motorR.throttle = 0.2
         time.sleep(0.2)
@@ -32,6 +35,9 @@ class Drivebase:
     def revbuzz(self):
         self.motorL.throttle = -0.2
         self.motorR.throttle = -0.2
+        time.sleep(0.2)
+        self.motorL.throttle = 0
+        self.motorR.throttle = 0
         time.sleep(0.2)
         self.motorL.throttle = -0.2
         self.motorR.throttle = -0.2
