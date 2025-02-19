@@ -20,7 +20,7 @@ class constants :
     AXIS_MAP = {
     "ABS_HAT0X": {
         -1: "LDpad",
-         1: "RLDpad"
+         1: "RDpad"
     },
     "ABS_HAT0Y": {
         -1: "UDpad",

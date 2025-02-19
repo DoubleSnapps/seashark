@@ -44,7 +44,9 @@ for event in controller.read_loop():
                     print("LB: Unbound")
                 case "RB":
                     print("RB: Running Snapshot Command")
+                    robot.buzz()
                     capture_image(1000)
+                    robot.revbuzz()
                 case "-":
                     print("-: Unbound")
                 case "+":
