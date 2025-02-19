@@ -8,15 +8,15 @@ class Drivebase:
 
     def drive(self, speed): 
         self.motorL.throttle = speed 
-        self.motorR.throttle = speed
+        self.motorR.throttle = -speed
         
     def turnL(self, speed):
         self.motorL.throttle = speed
-        self.motorR.throttle = -speed
+        self.motorR.throttle = speed
         
     def turnR(self, speed):
         self.motorL.throttle = -speed
-        self.motorR.throttle = speed
+        self.motorR.throttle = -speed
         
     def stop(self):
         self.motorL.throttle = 0
