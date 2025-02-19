@@ -1,4 +1,4 @@
 # SeaSharK
 NASA Hunch Lunar Ejecting Robot
 
-Utilizes CiruitPython
+Utilizes CiruitPython MotorKit
