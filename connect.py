@@ -36,12 +36,14 @@ for event in controller.read_loop():
                     print("A: Drive forward")
                     robot.drive(0.5)
                 case "B":
-                    print("B: Unbound")
+                    print("B: Slow Turn R")
+                    robot.slowTurnR()
                 case "X":
                     print("X: Buzz")
-                    robot.revbuzz()
+                    robot.buzz()
                 case "Y":
-                    print("Y: Unbound")
+                    print("Y: Slow Turn L")
+                    robot.slowTurnL()
                 case "LB":
                     print("LB: Unbound")
                 case "RB":

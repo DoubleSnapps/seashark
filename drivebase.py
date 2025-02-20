@@ -19,28 +19,36 @@ class Drivebase:
         self.motorL.throttle = speed
         self.motorR.throttle = speed
         
+    def slowTurnL(self, speed):
+        self.motorL.throttle = -speed
+        self.motorR.throttle = -0.1 * speed
+        
+    def slowTurnR(self, speed):
+        self.motorL.throttle = 0.1 * speed
+        self.motorR.throttle = speed
+        
     def buzz(self):
         self.motorL.throttle = 0.2
-        self.motorR.throttle = 0.2
+        self.motorR.throttle = -0.2
         time.sleep(0.2)
         self.motorL.throttle = 0
         self.motorR.throttle = 0
         time.sleep(0.2)
         self.motorL.throttle = 0.2
-        self.motorR.throttle = 0.2
+        self.motorR.throttle = -0.2
         time.sleep(0.2)
         self.motorL.throttle = 0
         self.motorR.throttle = 0
         
     def revbuzz(self):
         self.motorL.throttle = -0.2
-        self.motorR.throttle = -0.2
+        self.motorR.throttle = 0.2
         time.sleep(0.2)
         self.motorL.throttle = 0
         self.motorR.throttle = 0
         time.sleep(0.2)
         self.motorL.throttle = -0.2
-        self.motorR.throttle = -0.2
+        self.motorR.throttle = 0.2
         time.sleep(0.2)
         self.motorL.throttle = 0
         self.motorR.throttle = 0
