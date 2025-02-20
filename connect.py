@@ -37,13 +37,13 @@ for event in controller.read_loop():
                     robot.drive(0.5)
                 case "B":
                     print("B: Slow Turn R")
-                    robot.slowTurnR()
+                    robot.slowTurnR(1)
                 case "X":
                     print("X: Buzz")
                     robot.buzz()
                 case "Y":
                     print("Y: Slow Turn L")
-                    robot.slowTurnL()
+                    robot.slowTurnL(1)
                 case "LB":
                     print("LB: Unbound")
                 case "RB":

@@ -16,6 +16,3 @@ def capture_image(exposure=2000):
         print(f"Image successfully saved: {imagePath}")
     except subprocess.CalledProcessError as e:
         print(f"Capture Image Error: {e}")
-
-# Example usage:
-capture_image()
