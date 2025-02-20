@@ -54,7 +54,10 @@ for event in controller.read_loop():
                 case "-":
                     print("-: Unbound")
                 case "+":
-                    print("+: Unbound")
+                    print("+: High Def Photo")
+                    robot.buzz()
+                    capture_image(10000)
+                    robot.revbuzz()
                 case "MENU":
                     print("MENU: Unbound")
                 case _: 
